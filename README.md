@@ -24,7 +24,7 @@ const queue = require("async-delay-queue")
 const request = require("request-promise") // for example purposes only
 
 async crawl(url) {
-    let res = await queue.delay(() => request(url), add, delay)
+    let res = await queue.delay(() => request(url), "push", 100)
 
     // Hit rate limits? Put the same request at the start of the queue.
     // "unshift" to push at start, and increase delay to 10s.
