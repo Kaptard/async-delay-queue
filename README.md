@@ -24,15 +24,15 @@ const queue = require("async-delay-queue")
 const request = require("request-promise") // for example purposes only
 
 async crawl(url) {
-        let res = await queue.delay(() => request(url), add, delay)
+    let res = await queue.delay(() => request(url), add, delay)
 
-        // Hit rate limits? Put the same request at the start of the queue.
-        // "unshift" to push at start, and increase delay to 10s.
-        if (res.statusCode === 429) {
-            res = await queue.delay(() => request(url), "unshift", 10000)
-        }
+    // Hit rate limits? Put the same request at the start of the queue.
+    // "unshift" to push at start, and increase delay to 10s.
+    if (res.statusCode === 429) {
+        res = await queue.delay(() => request(url), "unshift", 10000)
+    }
 
-        return res
+    return res
 }
 
 // Crawls google.com 20 times with a 100ms delay between each request.
