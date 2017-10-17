@@ -4,7 +4,8 @@
   "description": "Minimal ES7 async queue with dynamic delay between functions.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/rollup -m -c build/rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,17 @@
   "bugs": {
     "url": "https://github.com/kaptard/timed-queue/issues"
   },
-  "homepage": "https://github.com/kaptard/timed-queue#readme"
+  "homepage": "https://github.com/kaptard/timed-queue#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babelrc-rollup": "^3.0.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-cleanup": "^1.0.1",
+    "rollup-plugin-commonjs": "^8.2.1",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  },
+  "dependencies": {}
 }
