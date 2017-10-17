@@ -15,7 +15,7 @@ class Queue {
    * Add function to stack and execute
    * Important: Function is assumed to be promisified
    */
-  delay(fn, delay, timer, add = 'push') {
+  delay(fn, delay, timer = 60000, add = 'push') {
     return new Promise(resolve => {
       const modFn = this.modFunction(fn, delay, timer, resolve)
 
