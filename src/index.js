@@ -16,8 +16,8 @@ class Queue {
    * Important: Function is assumed to be promisified
    */
   delay(fn, delay, timer = 60000, add = 'push') {
-    return new Promise(resolve => {
-      const modFn = this.modFunction(fn, delay, timer, resolve)
+    return new Promise((resolve, reject) => {
+      const modFn = this.modFunction(fn, delay, timer, resolve, reject)
 
       // Insert AFTER currently active task, so the current one would only
       // remove itself after finishing
@@ -33,7 +33,7 @@ class Queue {
   /**
    * Generate function with timeout and waterfall functionality
    */
-  modFunction(fn, delay, timer, resolve) {
+  modFunction(fn, delay, timer, resolve, reject) {
     return async() => {
       const runFunction = new Promise(res => {
         timeout(fn, delay).then(data => {
@@ -42,7 +42,7 @@ class Queue {
         })
         // Purge function if it doesn't resolve in time
         setTimeout(() => {
-          resolve()
+          reject('async-delay-queue ERR: Queued function timed out!')
           res()
         }, timer)
       })

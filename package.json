@@ -1,7 +1,7 @@
 {
   "name": "async-delay-queue",
   "version": "1.0.6",
-  "description": "Minimal ES7 async queue with dynamic delay between functions.",
+  "description": "Minimal ES7 async queue with dynamic delay between functions, with 0 dependencies.",
   "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
