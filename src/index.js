@@ -1,6 +1,4 @@
-const timeout = function(fn, s) {
-  return new Promise(resolve => setTimeout(() => resolve(fn()), s))
-}
+const timeout = (fn, s) => new Promise(resolve => setTimeout(() => resolve(fn()), s))
 
 /**
  * Queue for on_demand requests
