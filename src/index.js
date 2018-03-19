@@ -7,6 +7,7 @@ class Queue {
   constructor() {
     this.stack = []
     this.executing = null
+    this.throwOnTimeout = false
   }
 
   /**
@@ -40,7 +41,8 @@ class Queue {
         })
         // Purge function if it doesn't resolve in time
         setTimeout(() => {
-          reject('async-delay-queue ERR: Queued function timed out!')
+          const err = `Queued function timed out! (${fn.name})`
+          this.throwOnTimeout ? reject(err) : resolve(err)
           res()
         }, timer)
       })
