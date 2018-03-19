@@ -1,6 +1,6 @@
 {
   "name": "async-delay-queue",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Minimal ES7 async queue with dynamic delay between functions, with 0 dependencies.",
   "main": "./lib/index.js",
   "scripts": {
