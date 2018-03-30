@@ -18,8 +18,8 @@ class Queue {
     return new Promise((resolve, reject) => {
       const modFn = this.modFunction(fn, delay, timer, resolve, reject)
 
-      // Insert AFTER currently active task, so the current one would only
-      // remove itself after finishing
+      // If unshift: Insert AFTER currently active task, so the active task
+      // removes itself when finishing instead of the inserted function.
       if (this.stack[0] && add === 'unshift') {
         this.stack.splice(1, 0, modFn)
       } else {
@@ -35,27 +35,27 @@ class Queue {
   modFunction(fn, delay, timer, resolve, reject) {
     return async() => {
       const runFunction = new Promise(res => {
-        timeout(fn, delay).then(data => {
-          resolve(data)
-          res()
-        })
+        timeout(fn, delay).then(res)
+
         // Purge function if it doesn't resolve in time
         setTimeout(() => {
-          const err = `Queued function timed out! (${fn.name})`
-          this.throwOnTimeout ? reject(err) : resolve(err)
-          res()
+          const err = `Queued function timed out! (${fn.name || 'anonymous'})`
+          this.throwOnTimeout ? reject(err) : 0
+          res(err)
         }, timer)
       })
 
-      await runFunction
+      const data = await runFunction
 
       // Trigger next function if available
       this.stack.shift()
       if (this.stack[0]) {
         this.executing = true
+        resolve(data)
         this.stack[0]()
       } else {
         this.executing = false
+        resolve(data)
       }
     }
   }
